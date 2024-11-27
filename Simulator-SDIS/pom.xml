@@ -12,8 +12,25 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <quarkus.platform.version>2.13.3.Final</quarkus.platform.version>
+        <quarkus.platform.version>3.2.0.Final</quarkus.platform.version>
     </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <version>3.2.0.Final</version> <!-- Remplace par la version de Quarkus que tu utilises -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>dev</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencyManagement>
         <dependencies>

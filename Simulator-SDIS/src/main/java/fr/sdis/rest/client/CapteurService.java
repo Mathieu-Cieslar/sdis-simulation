@@ -1,6 +1,6 @@
 package fr.sdis.rest.client;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class CapteurService {

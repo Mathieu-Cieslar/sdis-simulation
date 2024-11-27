@@ -1,6 +1,6 @@
 package fr.sdis.service;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class FireGenerationService {

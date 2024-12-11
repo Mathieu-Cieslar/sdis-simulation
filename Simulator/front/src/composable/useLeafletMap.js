@@ -23,7 +23,7 @@ export function useLeafletMap() {
     }
 
 
-    const getFeuFromApi = async () => {
+    const getCapteurFromApi = async () => {
 
 
  const response = await fetch('http://localhost:8083/api/capteur',{method:'GET' })
@@ -31,8 +31,8 @@ export function useLeafletMap() {
         console.log(data)
         return data
     }
-    const putFeuOnMap = async () => {
-        const feuIcon = L.icon({
+    const putCapteurOnMap = async () => {
+        const capteurIcon = L.icon({
             iconUrl: img,
 
 
@@ -41,17 +41,27 @@ export function useLeafletMap() {
             shadowAnchor: [4, 62],  // the same for the shadow
         });
 
-        const data = await getFeuFromApi()
+        const data = await getCapteurFromApi()
         console.log(data)
         data.forEach(feu => {
-            L.marker([feu.coorX, feu.coorY], {icon : feuIcon} ).addTo(initialMap.value)
-            console.log( L.marker([feu.coorX, feu.coorY], {icon : feuIcon} ))
+            L.marker([feu.coorX, feu.coorY], {icon : capteurIcon} ).addTo(initialMap.value)
     })
+        //pour test de la requete put
+        // let newData = []
+        // data.forEach(capteur => {
+        //     capteur.valeur = 0
+        //     newData.push(capteur)
+        // })
+        // console.log(newData)
+        //
+        // const responseTest = await fetch('http://localhost:8081/api/capteur',{method:'PUT', body: JSON.stringify(newData), headers: { 'Content-Type': 'application/json' }})
+        // const dataTest = await responseTest.json();
+        // console.log(dataTest)
     }
 
     return {
         initialMap,
         initialiseMap,
-        putFeuOnMap
+        putCapteurOnMap
     }
 }

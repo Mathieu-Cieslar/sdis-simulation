@@ -16,6 +16,25 @@ class CapteurRepository extends ServiceEntityRepository
         parent::__construct($registry, Capteur::class);
     }
 
+    /**
+     * @return array Returns an array of Capteur objects with their last value and coordinates
+     */
+    public function findCapteursWithLastValue(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.id AS capteurId, c.coorX, c.coorY,c.typeCapteur ,  ic.valeur AS valeur')
+            ->leftJoin('c.info', 'ic')
+            ->andWhere('ic.dateInfo = (
+            SELECT MAX(ic2.dateInfo)
+            FROM App\Entity\InfoCapteur ic2
+            WHERE ic2.capteur = c
+        ) OR ic.dateInfo IS NULL')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
     //    /**
     //     * @return Capteur[] Returns an array of Capteur objects
     //     */

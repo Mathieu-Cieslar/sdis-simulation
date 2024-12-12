@@ -5,6 +5,7 @@ namespace App\Controller;
 use AllowDynamicProperties;
 use App\Entity\Capteur;
 use App\Entity\Feu;
+use App\Entity\InfoCapteur;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,10 +32,22 @@ $data = $em->getRepository(Capteur::class)->findAll();
             );
     }
 
-    #[Route(path: '/api/feu', name: 'post_capteur', methods: "POST")]
-    public function postCapteur(Request $request, EntityManagerInterface $em ): JsonResponse {
+    #[Route(path: '/api/capteur', name: 'put_capteur', methods: "PUT")]
+    public function putCapteur(Request $request, EntityManagerInterface $em ): JsonResponse {
         $data = $request->toArray();
-
+        $capteurs = $em->getRepository(Capteur::class)->findAll();
+        foreach ($capteurs as $capteur) {
+            foreach ($data as $value){
+                if ($value['id'] == $capteur->getId()){
+                    $info  = new InfoCapteur();
+                    $info->setDateInfo(new \DateTime());
+                    $info->setValeur($value['valeur']);
+                    $capteur->addInfoCapteur($info);
+                    $em->persist($capteur);
+                    $em->flush();
+                }
+            }
+        }
 
 
 

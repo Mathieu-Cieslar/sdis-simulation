@@ -51,9 +51,9 @@ $data = $em->getRepository(Capteur::class)->findCapteursWithLastValue();
             }
         }
 
-
-
-
+        return $this->json(
+            "Data updated"
+        );
     }
 
 

@@ -43,7 +43,7 @@ $data = $em->getRepository(Capteur::class)->findCapteursWithLastValue();
                     $info  = new InfoCapteur();
                     $info->setDateInfo(new \DateTime());
                     $info->setValeur($value['valeur']);
-                    $capteur->addInfoCapteur($info);
+                    $capteur->addInfo($info);
                     $em->persist($capteur);
                     $em->flush();
                 }

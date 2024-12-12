@@ -22,7 +22,7 @@ class CapteurRepository extends ServiceEntityRepository
     public function findCapteursWithLastValue(): array
     {
         return $this->createQueryBuilder('c')
-            ->select('c.id AS capteurId, c.coorX, c.coorY,c.typeCapteur ,  ic.valeur AS valeur')
+            ->select('c.id , c.coorX, c.coorY,c.typeCapteur ,  ic.valeur AS valeur')
             ->leftJoin('c.info', 'ic')
             ->andWhere('ic.dateInfo = (
             SELECT MAX(ic2.dateInfo)

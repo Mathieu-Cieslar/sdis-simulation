@@ -56,5 +56,14 @@ $data = $em->getRepository(Capteur::class)->findCapteursWithLastValue();
         );
     }
 
+    #[Route(path: '/api/capteur/actif', name: 'get_capteur', methods: "GET")]
+    public function getChangedCapteur(Request $request, EntityManagerInterface $em ): JsonResponse {
+        $data = $em->getRepository(Capteur::class)->findChangedCapteursWithLastValue();
+
+        return $this->json(
+            $data
+        );
+    }
+
 
 }

@@ -34,6 +34,22 @@ class CapteurRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findChangedCapteursWithLastValue(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.id , c.coorX as coorX, c.coorY as coorY,c.typeCapteur ,  ic.valeur AS valeur')
+            ->leftJoin('c.info', 'ic')
+            ->andWhere('ic.dateInfo = (
+            SELECT MAX(ic2.dateInfo)
+            FROM App\Entity\InfoCapteur ic2
+            WHERE ic2.capteur = c
+        ) OR ic.dateInfo IS NULL')
+            ->andWhere('ic.valeur = 10')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 
     //    /**
     //     * @return Capteur[] Returns an array of Capteur objects

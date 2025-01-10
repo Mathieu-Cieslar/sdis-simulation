@@ -143,6 +143,9 @@
       <path value="$PROJECT_DIR$/Simulator/vendor/symfony/clock" />
       <path value="$PROJECT_DIR$/Simulator/vendor/symfony/polyfill-intl-grapheme" />
       <path value="$PROJECT_DIR$/Simulator/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/Simulator/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/Simulator/vendor/symfony/mercure-bundle" />
+      <path value="$PROJECT_DIR$/Simulator/vendor/symfony/mercure" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2">

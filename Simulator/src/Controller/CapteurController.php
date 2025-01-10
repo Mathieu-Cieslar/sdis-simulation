@@ -12,6 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\Mercure\HubInterface;
+use Symfony\Component\Mercure\Update;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 
@@ -34,7 +36,7 @@ $data = $em->getRepository(Capteur::class)->findCapteursWithLastValue();
     }
 
     #[Route(path: '/api/capteur', name: 'put_capteur', methods: "PUT")]
-    public function putCapteur(Request $request, EntityManagerInterface $em ): JsonResponse {
+    public function putCapteur(Request $request, EntityManagerInterface $em, HubInterface $hub ): JsonResponse {
         $data = $request->toArray();
         $capteurs = $em->getRepository(Capteur::class)->findAll();
         foreach ($capteurs as $capteur) {
@@ -50,6 +52,13 @@ $data = $em->getRepository(Capteur::class)->findCapteursWithLastValue();
                 }
             }
         }
+        // Créer un événement pour Mercure
+        $update = new Update(
+            'https://example.com/new-fire', // Sujet unique
+            json_encode(['capteur' => $data, 'nom' => 'Capteur updated'] )
+        );
+        // Envoyer l'événement au Hub Mercure
+        $hub->publish($update);
 
         return $this->json(
             "Data updated"

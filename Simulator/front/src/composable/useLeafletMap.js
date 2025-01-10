@@ -36,7 +36,7 @@ export function useLeafletMap() {
             iconUrl: img,
 
 
-            iconSize:     [50, 50], // size of the icon
+            iconSize:     [15, 15], // size of the icon
             shadowSize:   [50, 64], // size of the shadow
             shadowAnchor: [4, 62],  // the same for the shadow
         });

@@ -91,8 +91,9 @@ export function useLeafletMap() {
     }
 
     const updateCapteursOnMap = (updatedCapteurs) => {
+        console.log(capteurMarkers)
         updatedCapteurs.forEach(updatedCapteur => {
-            const marker = capteurMarkers.get(updatedCapteur.id)
+            const marker = capteurMarkers.get(parseInt(updatedCapteur.id))
             if (marker) {
                 const updatedIcon = getIconByIntensity(updatedCapteur.valeur)
                 marker.setIcon(updatedIcon)
@@ -101,6 +102,8 @@ export function useLeafletMap() {
             } else {
                 console.warn(`Capteur ID ${updatedCapteur.id} non trouvé sur la carte.`)
             }
+            console.log('jsp :',capteurMarkers.get(updatedCapteur.id) ,updatedCapteur)
+
         })
     }
 

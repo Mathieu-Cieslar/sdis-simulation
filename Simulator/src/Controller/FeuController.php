@@ -37,6 +37,14 @@ class FeuController extends AbstractController
 
     }
 
+    #[Route('/api/feu/close/{id}', name: 'close_feu', methods: ['PUT'])]
+    public function closeFeu(EntityManagerInterface $em, $id): JsonResponse
+    {
+        $feu = $em->getRepository(Feu::class)->findOneBy(['id' => $id]);
+        $feu->setStatus(false);
+        return $this->json($feu);
+    }
+
 
 //    #[Route('/api/update', name: 'get_update', methods: ['GET'])]
 //    public function notifyNewFeu(HubInterface $hub): JsonResponse

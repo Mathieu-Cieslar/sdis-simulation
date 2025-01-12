@@ -25,7 +25,7 @@ class Feu
     private ?int $intensite = null;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $status = null;
+    private ?bool $status = true;
 
     public function __construct()
     {

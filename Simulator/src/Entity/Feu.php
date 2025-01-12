@@ -24,6 +24,9 @@ class Feu
     #[ORM\Column(nullable: true)]
     private ?int $intensite = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $status = null;
+
     public function __construct()
     {
 
@@ -66,6 +69,18 @@ class Feu
     public function setIntensite(?int $intensite): static
     {
         $this->intensite = $intensite;
+
+        return $this;
+    }
+
+    public function isStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?bool $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

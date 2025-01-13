@@ -20,6 +20,13 @@ class FeuController extends AbstractController
         return $this->json($data);
     }
 
+    #[Route('/api/feu/actif', name: 'get_feu_actif', methods: ['GET'])]
+    public function getAllFeuActif(EntityManagerInterface $em): JsonResponse
+    {
+        $data = $em->getRepository(Feu::class)->findBy(['status' => true]);
+        return $this->json($data);
+    }
+
     #[Route(path: '/api/feu', name: 'post_feu', methods: "POST")]
     public function postFeu(\Symfony\Component\HttpFoundation\Request $request, EntityManagerInterface $em,HubInterface $hub): JsonResponse
     {

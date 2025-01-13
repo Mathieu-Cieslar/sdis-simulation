@@ -22,22 +22,28 @@ class CapteurRepository extends ServiceEntityRepository
     public function findCapteursWithLastValue(): array
     {
         return $this->createQueryBuilder('c')
-            ->select('c.id , c.coorX as coorX, c.coorY as coorY,c.typeCapteur ,  ic.valeur AS valeur')
-            ->leftJoin('c.info', 'ic')
-            ->andWhere('ic.dateInfo = (
-            SELECT MAX(ic2.dateInfo)
-            FROM App\Entity\InfoCapteur ic2
-            WHERE ic2.capteur = c
-        ) OR ic.dateInfo IS NULL')
+            ->select('c.id, c.coorX, c.coorY, c.typeCapteur, ic.valeur AS valeur')
+            ->leftJoin(
+                'c.info',
+                'ic',
+                'WITH',
+                'ic.dateInfo = (
+                SELECT MAX(ic2.dateInfo)
+                FROM App\Entity\InfoCapteur ic2
+                WHERE ic2.capteur = c
+            )'
+            )
             ->orderBy('c.id', 'ASC')
             ->getQuery()
             ->getResult();
     }
 
+
+
     public function findChangedCapteursWithLastValue(): array
     {
         return $this->createQueryBuilder('c')
-            ->select('c.id , c.coorX as coorX, c.coorY as coorY, c.typeCapteur, icLast.valeur AS lastValue, icPrev.valeur AS prevValue')
+            ->select('c.id , c.coorX as coorX, c.coorY as coorY, c.typeCapteur, icLast.valeur AS valeur, icPrev.valeur AS prevValue')
             ->leftJoin('c.info', 'icLast', 'WITH', 'icLast.dateInfo = (
             SELECT MAX(ic2.dateInfo)
             FROM App\Entity\InfoCapteur ic2
@@ -52,7 +58,7 @@ class CapteurRepository extends ServiceEntityRepository
                 WHERE ic4.capteur = c
             )
         )')
-            ->andWhere('(icLast.valeur = 10 OR (icLast.valeur = 0 AND icPrev.valeur = 10))')
+            ->andWhere('(icLast.valeur = 9 OR (icLast.valeur = 0 AND icPrev.valeur = 9))')
             ->orderBy('c.id', 'ASC')
             ->getQuery()
             ->getResult();

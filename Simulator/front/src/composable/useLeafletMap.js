@@ -102,7 +102,7 @@ export function useLeafletMap() {
             } else {
                 console.warn(`Capteur ID ${updatedCapteur.id} non trouvé sur la carte.`)
             }
-            console.log('jsp :',capteurMarkers.get(updatedCapteur.id) ,updatedCapteur)
+            // console.log('jsp :',capteurMarkers.get(updatedCapteur.id) ,updatedCapteur)
 
         })
     }
